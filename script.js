@@ -3,20 +3,13 @@ const button = document.querySelector('.btn');
 const nonemessage=document.querySelector('.d-none')
 
 
-const setSuccess = (input) => {
-    input.classList.remove('error');
-    input.classList.add('success');
-    input.focus()
+const setSuccess = () => {
     return true;
 }
 
-const setError = (input) => { //deklarer set error och tar emot input referens
-    input.classList.add('error');
-    input.classList.remove('success');
-    input.focus(); // vi markerar när vi tabbar på något eller markerar på ett element
-    return false;
+const setError = () => { //deklarer set error och tar emot input referens
+   return false;
 }
-
 
 const validateText = (id) => {
     
@@ -67,27 +60,43 @@ const validateEmail = (id) => {
 const validatePassword = (id) => {
 
     const password = document.querySelector(id)
-    const repeatPassword = document.querySelector('#repeatPassword')
-
     
-    if(password.value.trim() === '' || repeatPassword === ''){
-        console.log(`You need to ${password.name}`);
+   if(password.value.trim() === ''){
+        console.log('You need to write password');
       return setError(password)
     } 
-    else if (password.value.trim().length < 6 || password.value.trim().length > 15 ){
+
+   else if (password.value.trim().length < 6 || password.value.trim().length > 15 ){
         console.log('Password min 6 max 15 characters');
         return setError (password)
         }
-        
-     else if (password.value !== repeatPassword.value){
-        console.log('Password does not match');
-        return setError (password)
-        }
-        
-        else {
-       return setSuccess(password)
-       }   
 
+   else {
+       return setSuccess(password)
+       }  
+
+}
+
+const validateRepeatPassword = (id) => {
+
+    const repeatPassword = document.querySelector(id)
+    const password= document.querySelector('#password')
+    
+
+    if (repeatPassword.value.trim() === ''){
+         console.log('You need to repeat password');
+         return setError(repeatPassword)
+    }
+    
+    else if(password.value.trim() !== repeatPassword.value){
+        console.log('password does not match');
+        return setError (repeatPassword)
+    }
+
+    else {
+        return setSuccess (repeatPassword)
+    }
+    
 }
 
 const validateCheckbox = (id) => {
@@ -115,7 +124,7 @@ const errors =[]; //array där vi lägger till eventuella errors
 
      for(let i=0; i < form.length; i++){ //här har vi tillgång till formuläret och tillgång till hur långt formuläret är
 
-    //console.log(form[i]);
+    console.log(form[i]);
         
     const inputId = '#' + form[i].id //hämtar ut id
 
@@ -128,7 +137,13 @@ const errors =[]; //array där vi lägger till eventuella errors
             errors[i] =validateEmail(inputId)
         }
          else if (form[i].type === 'password') {
-            errors[i]=validatePassword(inputId)
+            if (form[i].id === 'repeatPassword') {
+                errors[i]= validateRepeatPassword(inputId)
+            } 
+            else {
+                errors[i]=validatePassword(inputId)
+                }
+            
          }
         
          else if (form[i].type === 'checkbox') {
