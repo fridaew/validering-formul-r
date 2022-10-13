@@ -70,18 +70,18 @@ const validatePassword = (id) => {
     const repeatPassword = document.querySelector('#repeatPassword')
 
     
-    if(password.value.trim() === ''){
+    if(password.value.trim() === '' || repeatPassword === ''){
         console.log(`You need to ${password.name}`);
       return setError(password)
     } 
-    else if (password.value.trim().length < 6 || password.value.trim().length > 15){
+    else if (password.value.trim().length < 6 || password.value.trim().length > 15 ){
         console.log('Password min 6 max 15 characters');
         return setError (password)
         }
         
-     if (repeatPassword.value !== password.value){
+     else if (password.value !== repeatPassword.value){
         console.log('Password does not match');
-        return setError (repeatPassword)
+        return setError (password)
         }
         
         else {
@@ -115,7 +115,7 @@ const errors =[]; //array där vi lägger till eventuella errors
 
      for(let i=0; i < form.length; i++){ //här har vi tillgång till formuläret och tillgång till hur långt formuläret är
 
-    console.log(form[i]);
+    //console.log(form[i]);
         
     const inputId = '#' + form[i].id //hämtar ut id
 
