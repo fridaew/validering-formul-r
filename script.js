@@ -7,23 +7,23 @@ const setSuccess = () => {
     return true;
 }
 
-const setError = () => { //deklarer set error och tar emot input referens
+const setError = () => { 
    return false;
 }
 
 const validateText = (id) => {
     
     const name = document.querySelector(id)
-    const regEx = /^[a-zA-Zéüöêåø.\-_']+$/
+    const regEx = /^[a-zA-Zéüöêåäø.\-_']+$/
 
     
-    if(name.value.trim() === '') { // om användaren inte skriver in något
+    if(name.value.trim() === '') { 
         console.log(`You have to write a valid ${name.name}`); 
-        return setError(name); //här kallar vi på set setError funktionen och skickar med våran referens till input
+        return setError(name); 
     } 
     
-    else if (name.value.length < 2 ) { // om värdet är mindra än 2
-        console.log('Name must contain at least 2 characters.'); //berättar vi att värdet behöver vara mer än 1 bokstav lång
+    else if (name.value.length < 2 ) { 
+        console.log('Name must contain at least 2 characters.'); 
         return setError(name) 
     }
 
@@ -45,7 +45,7 @@ const validateEmail = (id) => {
     if(email.value.trim() === '') {
         console.log('Email can not be empty.');
         
-        return setError(email)  //här kallar vi på set setError funktionen och skickar med våran referens till input
+        return setError(email)  
      } 
      else if (!regExp.test(email.value)) {
         console.log('Email is not valid.');
@@ -120,17 +120,17 @@ e.preventDefault()
 
    
   
-const errors =[]; //array där vi lägger till eventuella errors
+const errors =[]; 
 
-     for(let i=0; i < form.length; i++){ //här har vi tillgång till formuläret och tillgång till hur långt formuläret är
+     for(let i=0; i < form.length; i++){ 
 
-    console.log(form[i]);
+    
         
-    const inputId = '#' + form[i].id //hämtar ut id
+    const inputId = '#' + form[i].id 
 
 
-        if (form[i].type === 'text') { // om den här typen har 'text'. Kollar om den aktuella inputen är i typen text
-            errors[i] = validateText(inputId) //vill jag validera texten
+        if (form[i].type === 'text') { 
+            errors[i] = validateText(inputId) 
 
         }
          else if(form[i].type === 'email') {
@@ -143,8 +143,7 @@ const errors =[]; //array där vi lägger till eventuella errors
             else {
                 errors[i]=validatePassword(inputId)
                 }
-            
-         }
+            }
         
          else if (form[i].type === 'checkbox') {
             errors[i] = validateCheckbox(inputId)
@@ -160,7 +159,7 @@ const errors =[]; //array där vi lägger till eventuella errors
         Password:(password).value
     }
 
-    if(errors.includes(false)) { // kollar om errors inehåller ett false värder
+    if(errors.includes(false)) { 
         
         nonemessage.classList.remove('d-none');
      }
